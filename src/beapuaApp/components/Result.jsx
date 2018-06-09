@@ -12,9 +12,6 @@ import Header from './Header.jsx';
 import { common } from '../style';
 
 const styles = theme => ({
-  card: {
-    maxWidth: 345,
-  },
   root1: theme.mixins.gutters({
     paddingTop: 0,
     paddingBottom: 16,
@@ -62,7 +59,7 @@ class Result extends React.Component {
               </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Card className={classes.card}>
+              <Card className={classes.root2}>
                 <CardMedia
                   className={classes.media}
                   image="/static/images/cards/contemplative-reptile.jpg"
@@ -71,12 +68,9 @@ class Result extends React.Component {
               </Card>
             </Grid>
             <Grid item xs={6}>
-              <Card className={classes.card}>
+              <Card className={classes.root3}>
                 <CardContent>
-                  <Typography gutterBottom variant="headline" component="h2" />
-                  <Typography component="p">
-          (<Paper className={classes.root3}>(名前さん)の結果はXX点</Paper>
-                  </Typography>
+                  <Typography gutterBottom variant="headline" component="h2" />(名前さん)の結果はXX点
                 </CardContent>
               </Card>
             </Grid>
