@@ -1,173 +1,149 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Typography } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import React from 'react';
+import {
+  Button,
+  Grid,
+  Icon,
+  LinearProgress,
+  Paper,
+  Typography
+} from '@material-ui/core';
 
 import Header from './Header.jsx';
 import Loader from './Loader.jsx';
-import { common } from '../style';
+import { common, progress } from '../style';
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing.unit * 1,
-    textAlign: 'center',
-    // verticalAlign: 'middle',
-    color: theme.palette.text.secondary,
-    // height: 200,
-    paddingTop: 100,
-    paddingBottom: 100,
-    marginTop: theme.spacing.unit * 1,
-  },
-  paper2: {
-    padding: theme.spacing.unit * 1,
-    textAlign: 'center',
-    // verticalAlign: 'middle',
-    color: theme.palette.text.secondary,
-    // height: 80,
-    paddingTop: 30,
-    paddingBottom: 30,
-    marginTop: theme.spacing.unit * 1,
-  },
-});
-
-// let timer = null;
-// const state = {
-//   completed: 0,
-//   buffer: 10,
-// };
-
-class Progress extends PureComponent {
+class Progress extends React.Component {
   constructor(props) {
     super(props);
-    this.timer = null;
     this.state = {
-      completed: 0,
-      buffer: 0,
+      goalCompleted: 0,
+      currentScore: 0,
+      timeLimit: 0,
+      currentSec: 0
     };
+    console.log(this.props.location.state);
   }
 
   componentDidMount() {
-    this.timer = setInterval(() => { this.progress(); }, 100);
+    setInterval(() => { this.timer(); }, 1000);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.timer);
+  adder(pt) {
+    this.setState({
+      goalCompleted: ((this.state.currentScore + pt) / this.props.location.state.goal) * 100,
+      currentScore: this.state.currentScore + pt
+    });
   }
 
-  progress() {
-    const { completed } = this.state;
-    // console.log(this.state);
-    if (completed > 100) {
-      this.setState({ completed: 0, buffer: 0 });
-    } else {
-      // const diff = Math.random() * 10;
-      const diff = 1;
-      // const diff2 = Math.random() * 10;
-      // state = {
-      //   completed: completed + diff,
-      //   buffer: completed + diff + diff2
-      // };
-      // console.log(diff);
-      this.setState({ completed: completed + diff, buffer: completed + diff });
-    }
+  timer() {
+    this.setState({
+      timeLimit: (this.state.currentSec / (this.props.location.state.time * 60)) * 100,
+      currentSec: this.state.currentSec + 1
+    });
   }
 
   render() {
-    const { classes } = this.props;
-    const { completed, buffer } = this.state;
-
     return (
       <article>
         <Header />
-        {/* <Typography variant="display3">Progress</Typography> */}
 
         <section style={common.main}>
-          <div className={classes.root}>
-            残り時間：
-            <br />
-            <LinearProgress variant="buffer" value={completed} valueBuffer={buffer} />
-            目標達成度：
-            <br />
-            <LinearProgress color="secondary" variant="buffer" value={completed} valueBuffer={buffer} />
-            <Grid container spacing={8}>
-              <Grid item xs>
-                <Paper className={classes.paper}>声かけ</Paper>
-              </Grid>
-              <Grid item xs>
-                <Paper className={classes.paper}>エルゲ</Paper>
-              </Grid>
+          <section style={progress.linearSection}>
+            <section style={progress.goalSection}>
+              <Typography variant="title">Current score</Typography>
+              <LinearProgress variant="determinate" value={this.state.goalCompleted} style={progress.goal} />
+            </section>
+
+            <section style={progress.timeSection}>
+              <Typography variant="title">Time limit</Typography>
+              <LinearProgress variant="determinate" value={this.state.timeLimit} style={progress.time} />
+            </section>
+          </section>
+
+          <Grid container spacing={8}>
+            <Grid item xs={6}>
+              <Paper
+                style={{
+                  background: '#222',
+                  color: '#fff',
+                  height: 150,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+                onClick={() => { this.adder(5); }}
+              >
+                <Icon style={progress.icon}>record_voice_over</Icon>
+                <Typography variant="title" color="inherit">声掛け</Typography>
+              </Paper>
             </Grid>
-            <Grid container spacing={8}>
-              <Grid item xs>
-                <Paper className={classes.paper}>連れ出し</Paper>
-              </Grid>
-              <Grid item xs>
-                <Paper className={classes.paper}>コネクト</Paper>
-              </Grid>
+            <Grid item xs={6}>
+              <Paper
+                style={{
+                  background: '#222',
+                  color: '#fff',
+                  height: 150,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+                onClick={() => { this.adder(10); }}
+              >
+                <Icon style={progress.icon}>chat</Icon>
+                <Typography variant="title" color="inherit">エルゲ</Typography>
+              </Paper>
             </Grid>
-            <Grid container spacing={8}>
-              <Grid item xs>
-                <Paper className={classes.paper2}>あきらめる</Paper>
-              </Grid>
+            <Grid item xs={6}>
+              <Paper
+                style={{
+                  background: '#222',
+                  color: '#fff',
+                  height: 150,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+                onClick={() => { this.adder(25); }}
+              >
+                <Icon style={progress.icon}>people</Icon>
+                <Typography variant="title" color="inherit">連れ出し</Typography>
+              </Paper>
             </Grid>
-          </div>
+            <Grid item xs={6}>
+              <Paper
+                style={{
+                  background: '#222',
+                  color: '#fff',
+                  height: 150,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+                onClick={() => { this.adder(100); }}
+              >
+                <Icon style={progress.icon}>favorite</Icon>
+                <Typography variant="title" color="inherit">コネクト</Typography>
+              </Paper>
+            </Grid>
+          </Grid>
         </section>
+
+        <footer style={common.footer}>
+          <Button
+            color="secondary"
+            fullWidth
+            variant="contained"
+          >
+            Surrender
+          </Button>
+        </footer>
       </article>
     );
   }
 }
 
-Progress.propTypes = {
-  // home: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
-  // loadHome: PropTypes.func.isRequired
-};
-
-// export default Progress;
-export default withStyles(styles)(Progress);
-
-
-// state = {
-//   completed: 0,
-//   buffer: 10,
-// };
-
-// componentDidMount() {
-//   this.timer = setInterval(this.progress, 500);
-// }
-
-// componentWillUnmount() {
-//   clearInterval(this.timer);
-// }
-
-// timer = null;
-
-// progress = () => {
-//   const { completed } = this.state;
-//   if (completed > 100) {
-//     this.setState({ completed: 0, buffer: 10 });
-//   } else {
-//     const diff = Math.random() * 10;
-//     const diff2 = Math.random() * 10;
-//     this.setState({ completed: completed + diff, buffer: completed + diff + diff2 });
-//   }
-// };
-
-// render() {
-//   const { classes } = this.props;
-//   const { completed, buffer } = this.state;
-//   return (
-//     <div className={classes.root}>
-//       <LinearProgress variant="buffer" value={completed} valueBuffer={buffer} />
-//       <br />
-//       <LinearProgress color="secondary" variant="buffer" value={completed} valueBuffer={buffer} />
-//     </div>
-//   );
-// }
-// }
+export default Progress;

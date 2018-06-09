@@ -3,10 +3,10 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#039BE5'
+      main: '#E91E63'
     },
     secondary: {
-      main: '#E91E63'
+      main: '#039BE5'
     }
   },
 });
@@ -19,7 +19,8 @@ const common = {
   },
   main: {
     padding: 12,
-    marginTop: 56
+    marginTop: 56,
+    marginBottom: 36
   }
 };
 
@@ -33,14 +34,35 @@ const loader = {
   }
 };
 
-const cardStyle = {
-  card: {
-    maxWidth: 345,
+const progress = {
+  goal: {
+    height: 32
   },
-  media: {
-    height: 0,
-    paddingTop: 200
+  goalSection: {
+    paddingBottom: 12
   },
+  icon: {
+    fontSize: 64
+  },
+  time: {
+    height: 16
+  },
+  timeSection: {
+    paddingBottom: 12
+  },
+  linearSection: {
+    paddingTop: 12,
+    paddingBottom: 12
+  }
 };
 
-export { cardStyle, common, loader, theme };
+const targetSet = {
+  paperSection: {
+    paddingTop: 24
+  },
+  sliderSection: {
+    paddingTop: 24
+  }
+};
+
+export { common, loader, theme, progress, targetSet };
