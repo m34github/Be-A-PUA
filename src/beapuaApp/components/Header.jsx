@@ -6,7 +6,7 @@ const Header = () => (
     <AppBar>
       <Toolbar>
         <Typography variant="title" color="inherit">
-          SimpleApp
+          Be A PUA
         </Typography>
       </Toolbar>
     </AppBar>

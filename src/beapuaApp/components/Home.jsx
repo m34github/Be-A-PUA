@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Button, Typography } from '@material-ui/core';
 
 import Header from './Header.jsx';
-import Footer from './Footer.jsx';
 import Loader from './Loader.jsx';
 import { common } from '../style';
 
@@ -23,8 +22,6 @@ class Home extends React.Component {
             <Button variant="contained" color="primary">Primary</Button>
             <Button variant="contained" color="secondary">Secondary</Button>
           </section>
-
-          <Footer index={0} />
         </article>
       );
     }
