@@ -29,4 +29,14 @@ const loader = {
   }
 };
 
-export { common, loader, theme };
+const cardStyle = {
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 0,
+    paddingTop: 200
+  },
+};
+
+export { cardStyle, common, loader, theme };
