@@ -1,6 +1,12 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import {
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Grid,
   Icon,
   LinearProgress,
@@ -16,10 +22,13 @@ class Progress extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isFinished: false,
+      isSuccess: false,
       goalCompleted: 0,
       currentScore: 0,
       timeLimit: 0,
-      currentSec: 0
+      currentSec: 0,
+      dialogOpen: false
     };
     console.log(this.props.location.state);
   }
@@ -36,13 +45,54 @@ class Progress extends React.Component {
   }
 
   timer() {
+    if (this.state.goalCompleted >= 100) {
+      this.setState({
+        isFinished: true,
+        isSuccess: true
+      });
+    } else if (this.state.timeLimit >= 100) {
+      this.setState({
+        isFinished: true,
+        isSuccess: false
+      });
+    } else {
+      this.setState({
+        timeLimit: (this.state.currentSec / (this.props.location.state.time * 60)) * 100,
+        currentSec: this.state.currentSec + 1
+      });
+    }
+  }
+
+  handleOpenDialog() {
     this.setState({
-      timeLimit: (this.state.currentSec / (this.props.location.state.time * 60)) * 100,
-      currentSec: this.state.currentSec + 1
+      dialogOpen: true
+    });
+  }
+
+  handleCloseDialog() {
+    this.setState({
+      dialogOpen: false
+    });
+  }
+
+  handleSurrender() {
+    this.setState({
+      isFinished: true
     });
   }
 
   render() {
+    if (this.state.isFinished) {
+      return (
+        <Redirect to={{
+          pathname: '/result',
+          state: {
+            result: this.state.isSuccess ? 'success' : 'failed'
+          }
+        }}
+        />
+      );
+    }
     return (
       <article>
         <Header />
@@ -137,10 +187,24 @@ class Progress extends React.Component {
             color="secondary"
             fullWidth
             variant="contained"
+            onClick={() => { this.handleOpenDialog(); }}
           >
             Surrender
           </Button>
         </footer>
+
+        <Dialog open={this.state.dialogOpen}>
+          <DialogTitle>諦めてしまうのですか？</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              とある心理研究によると、後悔の75％は「しなかったことに対する後悔」だと言われています
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button color="secondary" onClick={() => { this.handleCloseDialog(); }}>もう少し粘る</Button>
+            <Button color="primary" onClick={() => { this.handleSurrender(); }}>諦めてしまう</Button>
+          </DialogActions>
+        </Dialog>
       </article>
     );
   }
