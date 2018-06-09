@@ -1,92 +1,106 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile/GridListTile';
-import ListSubheader from '@material-ui/core/ListSubheader/ListSubheader';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-// import Avatar from '@material-ui/core/Avatar';
-// import ImageIcon from '@material-ui/icons/Image';
-// import WorkIcon from '@material-ui/icons/Work';
-// import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import {
+  Button,
+  GridList,
+  GridListTile,
+  GridListTileBar,
+  Icon,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  TextField
+} from '@material-ui/core';
+import Slider from '@material-ui/lab/Slider';
 
 import Header from './Header.jsx';
-import { common, cardStyle } from '../style';
+import { common } from '../style';
 
 class TargetSet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.nameRef = React.createRef();
+    this.placeRef = React.createRef();
+    this.state = {
+      value: 30
+    };
+  }
+
+  handleChange(event, value) {
+    this.setState({
+      value
+    });
+  }
+
   render() {
     return (
       <article>
         <Header leftIcon="chvron_left" rightIcon="more_vert" />
-        <main style={common.main} />
-        <div>
-          <Grid container spacing={24}>
-            <Grid item xs>
-              <Card>
-                <CardMedia
-                  style={cardStyle.media}
-                  image="/assets/img/spanyan.png"
-                  title="your image"
-                />
-              </Card>
-            </Grid>
 
-            <Grid item xs>
-              <TextField label="名前" id="name" type="text" />
-              <TextField label="時間" id="time" type="number" />
-              <TextField label="場所" id="place" type="text" />
-            </Grid>
-          </Grid>
-        </div>
+        <main style={common.main}>
+          <GridList cols={1}>
+            <GridListTile>
+              <img src="assets/img/character/spanyan.png" alt="character" />
+              <GridListTileBar title="Set your goal" />
+            </GridListTile>
+          </GridList>
 
-        <div>
-          <Grid container spacing={24}>
-            <Grid item xs>
-              <List>
-                <ListItem>
-                  {/* <Avatar>
-                    <ImageIcon />
-                  </Avatar> */}
-                  <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-                </ListItem>
-                <ListItem>
-                  {/* <Avatar>
-                    <WorkIcon />
-                  </Avatar> */}
-                  <ListItemText primary="Work" secondary="Jan 7, 2014" />
-                </ListItem>
-                <ListItem>
-                  {/* <Avatar>
-                    <BeachAccessIcon />
-                  </Avatar> */}
-                  <ListItemText primary="Vacation" secondary="July 20, 2014" />
-                </ListItem>
-              </List>
-            </Grid>
+          <Slider
+            value={this.state.value}
+            min={0}
+            max={100}
+            step={10}
+            onChange={(e, v) => { this.handleChange(e, v); }}
+          />
 
-            <Grid item xs>
-              <TextField label="名前" id="name" type="text" />
-              <TextField label="時間" id="time" type="number" />
-              <TextField label="場所" id="place" type="text" />
-            </Grid>
-          </Grid>
-        </div>
+          <TextField
+            fullWidth
+            inputRef={(el) => { this.nameRef = el; }}
+            label="Who"
+            margin="normal"
+            placeholder="Who"
+          />
+          <TextField
+            fullWidth
+            inputRef={(el) => { this.placeRef = el; }}
+            label="Where"
+            margin="normal"
+            placeholder="Where"
+          />
+
+          <List>
+            <ListItem>
+              <ListItemText primary="声掛け" />
+              <ListItemText primary="5 pt." />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="エルゲ" />
+              <ListItemText primary="10 pt." />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="連れ出し" />
+              <ListItemText primary="25 pt." />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="コネクト" />
+              <ListItemText primary="100 pt." />
+            </ListItem>
+          </List>
+        </main>
+
+        <footer style={common.footer}>
+          <Button
+            color="primary"
+            fullWidth
+            onClick={() => { this.props.history.push('/progress'); }}
+            variant="contained"
+          >
+            Start
+          </Button>
+        </footer>
       </article>
     );
   }
 }
-
-// TargetSet.propTypes = {
-//   classes: PropTypes.object.isRequired,
-// };
 
 export default TargetSet;

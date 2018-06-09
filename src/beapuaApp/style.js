@@ -12,10 +12,14 @@ const theme = createMuiTheme({
 });
 
 const common = {
+  footer: {
+    position: 'fixed',
+    bottom: 0,
+    width: '100%'
+  },
   main: {
     padding: 12,
-    marginTop: 20,
-    marginBottom: 10
+    marginTop: 56
   }
 };
 

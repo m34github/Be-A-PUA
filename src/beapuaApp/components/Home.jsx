@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Typography } from '@material-ui/core';
 
-
 import Header from './Header.jsx';
 import Loader from './Loader.jsx';
 import { common } from '../style';
-
 
 class Home extends React.Component {
   componentDidMount() {
