@@ -5,7 +5,7 @@ class TargetSet extends React.Component {
   render() {
     return (
       <article>
-        <Typography variant="display3">Target Set</Typography>
+        <Typography variant="display3">NamPamPam Set</Typography>
       </article>
     );
   }
