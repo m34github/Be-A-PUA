@@ -19,10 +19,15 @@ class Home extends React.Component {
         <article>
           <Header />
 
-          <section style={common.main}>
+          <section style={{
+            padding: 12,
+            marginTop: 56
+          }}
+          >
             <Typography variant="subheading">Home</Typography>
-            <Button variant="contained" color="primary">Primary</Button>
-            <Button variant="contained" color="secondary">Secondary</Button>
+            <Button variant="contained" color="primary" onClick={() => { this.props.history.push('/set'); }}>Target Set</Button>
+            <Button variant="contained" color="primary" onClick={() => { this.props.history.push('/progress'); }}>Progress</Button>
+            <Button variant="contained" color="primary" onClick={() => { this.props.history.push('/result'); }}>Result</Button>
           </section>
 
         </article>

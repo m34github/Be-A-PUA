@@ -1,7 +1,7 @@
 {
-  "author": "John Doe",
-  "background_color": "#c0ca33",
-  "description": "PWA template by React/Redux",
+  "author": "SPA King",
+  "background_color": "#212121",
+  "description": "Makes you a Pick Up Artist",
   "display": "standalone",
   "icons": [
     {
@@ -33,17 +33,12 @@
       "src": "assets/img/icon/android-icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
-    },
-    {
-      "src": "assets/img/icon/android-icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
     }
   ],
-  "name": "PWA Template",
+  "name": "Be A PUA",
   "orientation": "portrait",
   "scope": "/",
-  "short_name": "PWA-T",
+  "short_name": "Be A PUA",
   "start_url": "/",
   "theme_color": "#212121"
 }
