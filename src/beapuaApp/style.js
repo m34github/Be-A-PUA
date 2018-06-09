@@ -14,8 +14,8 @@ const theme = createMuiTheme({
 const common = {
   main: {
     padding: 12,
-    marginTop: 30,
-    marginBottom: 56
+    marginTop: 20,
+    marginBottom: 10
   }
 };
 
