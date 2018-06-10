@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import {
   Button,
@@ -15,7 +16,6 @@ import {
 } from '@material-ui/core';
 
 import Header from './Header.jsx';
-import Loader from './Loader.jsx';
 import { common, progress } from '../style';
 
 class Progress extends React.Component {
@@ -30,7 +30,6 @@ class Progress extends React.Component {
       currentSec: 0,
       dialogOpen: false
     };
-    console.log(this.props.location.state);
   }
 
   componentDidMount() {
@@ -87,6 +86,12 @@ class Progress extends React.Component {
         <Redirect to={{
           pathname: '/result',
           state: {
+            name: this.props.location.state.name,
+            place: this.props.location.state.place,
+            score: this.state.currentScore,
+            goalCompleted: this.state.goalCompleted,
+            sec: this.state.currentSec,
+            timeLimit: this.state.timeLimit,
             result: this.state.isSuccess ? 'success' : 'failed'
           }
         }}
@@ -106,7 +111,7 @@ class Progress extends React.Component {
 
             <section style={progress.timeSection}>
               <Typography variant="title">Time limit</Typography>
-              <LinearProgress variant="determinate" value={this.state.timeLimit} style={progress.time} />
+              <LinearProgress color="secondary" variant="determinate" value={this.state.timeLimit} style={progress.time} />
             </section>
           </section>
 
@@ -209,5 +214,9 @@ class Progress extends React.Component {
     );
   }
 }
+
+Progress.propTypes = {
+  location: PropTypes.object.isRequired
+};
 
 export default Progress;

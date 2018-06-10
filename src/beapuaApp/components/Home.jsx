@@ -4,7 +4,6 @@ import { Button, Typography } from '@material-ui/core';
 
 import Header from './Header.jsx';
 import Loader from './Loader.jsx';
-import { common } from '../style';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -41,7 +40,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
   home: PropTypes.object.isRequired,
-  // classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   loadHome: PropTypes.func.isRequired
 };
 

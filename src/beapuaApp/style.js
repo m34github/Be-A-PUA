@@ -56,6 +56,36 @@ const progress = {
   }
 };
 
+const result = {
+  goalSection: {
+    paddingBottom: 12
+  },
+  info: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  infoSection: {
+    paddingTop: 24,
+    paddingBottom: 24
+  },
+  message: {
+    textAlign: 'center',
+    paddingBottom: 24
+  },
+  timeSection: {
+    paddingBottom: 12
+  },
+  tips: {
+    background: '#039BE5',
+    borderRadius: 12,
+    color: '#fff',
+    margin: 6,
+    padding: 12
+  }
+};
+
 const targetSet = {
   paperSection: {
     paddingTop: 24
@@ -65,4 +95,4 @@ const targetSet = {
   }
 };
 
-export { common, loader, theme, progress, targetSet };
+export { common, loader, theme, progress, result, targetSet };

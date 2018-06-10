@@ -1,14 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   GridList,
   GridListTile,
   GridListTileBar,
-  Icon,
   List,
   ListItem,
   ListItemText,
-  ListItemSecondaryAction,
   Paper,
   TextField,
   Typography
@@ -44,18 +43,18 @@ class TargetSet extends React.Component {
   render() {
     return (
       <article>
-        <Header leftIcon="chvron_left" rightIcon="more_vert" />
+        <Header />
 
         <main style={common.main}>
           <GridList cols={1}>
             <GridListTile>
-              <img src="assets/img/character/spanyan.png" alt="character" />
-              <GridListTileBar title="Set your goal" />
+              <img src="assets/img/character/onmusu/dogo_square.png" alt="character" />
+              <GridListTileBar title="ピックアップのゴールを決めよう！" />
             </GridListTile>
           </GridList>
 
           <section style={targetSet.sliderSection}>
-            <Typography variant="title">Goal {this.state.goal} pt.</Typography>
+            <Typography variant="title">ゴールスコア {this.state.goal} pt.</Typography>
             <Slider
               value={this.state.goal}
               min={0}
@@ -64,7 +63,7 @@ class TargetSet extends React.Component {
               onChange={(e, v) => { this.handleChangeGoal(e, v); }}
             />
 
-            <Typography variant="title">Time {this.state.time} min.</Typography>
+            <Typography variant="title">制限時間 {this.state.time} 分.</Typography>
             <Slider
               value={this.state.time}
               min={0}
@@ -77,16 +76,16 @@ class TargetSet extends React.Component {
           <TextField
             fullWidth
             inputRef={(el) => { this.nameRef = el; }}
-            label="Who"
+            label="ニックネーム"
             margin="normal"
-            placeholder="Who"
+            placeholder="例: ナンパンマン"
           />
           <TextField
             fullWidth
             inputRef={(el) => { this.placeRef = el; }}
-            label="Where"
+            label="狩場"
             margin="normal"
-            placeholder="Where"
+            placeholder="例: 新宿 西口"
           />
 
           <section style={targetSet.paperSection}>
@@ -139,5 +138,9 @@ class TargetSet extends React.Component {
     );
   }
 }
+
+TargetSet.propTypes = {
+  history: PropTypes.object.isRequired
+};
 
 export default TargetSet;
