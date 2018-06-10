@@ -1,11 +1,13 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
+import { header } from '../style';
+
 const Header = () => (
   <section>
-    <AppBar>
+    <AppBar style={header.appBar}>
       <Toolbar>
-        <Typography variant="title" color="inherit">
+        <Typography variant="display1" color="inherit" style={header.typography}>
           Be A PUA
         </Typography>
       </Toolbar>

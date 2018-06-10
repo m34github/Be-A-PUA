@@ -83,7 +83,7 @@ class TargetSet extends React.Component {
           <TextField
             fullWidth
             inputRef={(el) => { this.placeRef = el; }}
-            label="狩場"
+            label="舞台"
             margin="normal"
             placeholder="例: 新宿 西口"
           />

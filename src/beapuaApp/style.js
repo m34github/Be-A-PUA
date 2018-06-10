@@ -24,6 +24,17 @@ const common = {
   }
 };
 
+const header = {
+  appBar: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  typography: {
+    fontFamily: 'Righteous'
+  }
+};
+
 const loader = {
   progress: {
     height: window.innerHeight,
@@ -95,4 +106,4 @@ const targetSet = {
   }
 };
 
-export { common, loader, theme, progress, result, targetSet };
+export { common, header, loader, progress, result, targetSet, theme };
