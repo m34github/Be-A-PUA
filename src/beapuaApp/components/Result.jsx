@@ -8,8 +8,8 @@ import {
   ListItem,
   Typography
 } from '@material-ui/core';
-import axios from 'axios';
 
+import { db } from '../.env/firebase.config';
 import Header from './Header.jsx';
 import Loader from './Loader.jsx';
 import { common, result } from '../style';
@@ -31,11 +31,11 @@ class Result extends React.Component {
   }
 
   getJson(index) {
-    axios.get('assets/tips.json')
-      .then((data) => {
+    db.ref('prod').child('tips').once('value')
+      .then((snapshot) => {
         this.setState({
           isLoaded: true,
-          tips: data.data.Tips[index]
+          tips: snapshot.val()[index]
         });
       });
   }
