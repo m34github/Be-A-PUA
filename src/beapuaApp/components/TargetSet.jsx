@@ -1,92 +1,146 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile/GridListTile';
-import ListSubheader from '@material-ui/core/ListSubheader/ListSubheader';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-// import Avatar from '@material-ui/core/Avatar';
-// import ImageIcon from '@material-ui/icons/Image';
-// import WorkIcon from '@material-ui/icons/Work';
-// import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import {
+  Button,
+  GridList,
+  GridListTile,
+  GridListTileBar,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
+  TextField,
+  Typography
+} from '@material-ui/core';
+import Slider from '@material-ui/lab/Slider';
 
 import Header from './Header.jsx';
-import { common, cardStyle } from '../style';
+import { common, targetSet } from '../style';
 
 class TargetSet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.nameRef = React.createRef();
+    this.placeRef = React.createRef();
+    this.state = {
+      goal: 30,
+      time: 30
+    };
+  }
+
+  handleChangeGoal(event, goal) {
+    this.setState({
+      goal
+    });
+  }
+
+  handleChangeTime(event, time) {
+    this.setState({
+      time
+    });
+  }
+
   render() {
     return (
       <article>
-        <Header leftIcon="chvron_left" rightIcon="more_vert" />
-        <main style={common.main} />
-        <div>
-          <Grid container spacing={24}>
-            <Grid item xs>
-              <Card>
-                <CardMedia
-                  style={cardStyle.media}
-                  image="/assets/img/spanyan.png"
-                  title="your image"
-                />
-              </Card>
-            </Grid>
+        <Header />
 
-            <Grid item xs>
-              <TextField label="名前" id="name" type="text" />
-              <TextField label="時間" id="time" type="number" />
-              <TextField label="場所" id="place" type="text" />
-            </Grid>
-          </Grid>
-        </div>
+        <main style={common.main}>
+          <GridList cols={1}>
+            <GridListTile>
+              <img src="assets/img/character/onmusu/dogo_square.png" alt="character" />
+              <GridListTileBar title="ピックアップのゴールを決めよう！" />
+            </GridListTile>
+          </GridList>
 
-        <div>
-          <Grid container spacing={24}>
-            <Grid item xs>
+          <section style={targetSet.sliderSection}>
+            <Typography variant="title">ゴールスコア {this.state.goal} pt.</Typography>
+            <Slider
+              value={this.state.goal}
+              min={0}
+              max={100}
+              step={10}
+              onChange={(e, v) => { this.handleChangeGoal(e, v); }}
+            />
+
+            <Typography variant="title">制限時間 {this.state.time} 分.</Typography>
+            <Slider
+              value={this.state.time}
+              min={0}
+              max={120}
+              step={1}
+              onChange={(e, v) => { this.handleChangeTime(e, v); }}
+            />
+          </section>
+
+          <TextField
+            fullWidth
+            inputRef={(el) => { this.nameRef = el; }}
+            label="ニックネーム"
+            margin="normal"
+            placeholder="例: ナンパンマン"
+          />
+          <TextField
+            fullWidth
+            inputRef={(el) => { this.placeRef = el; }}
+            label="舞台"
+            margin="normal"
+            placeholder="例: 新宿 西口"
+          />
+
+          <section style={targetSet.paperSection}>
+            <Typography variant="subheading">スコア表</Typography>
+            <Paper>
               <List>
                 <ListItem>
-                  {/* <Avatar>
-                    <ImageIcon />
-                  </Avatar> */}
-                  <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+                  <ListItemText primary="声掛け" />
+                  <ListItemText primary="5 pt." />
                 </ListItem>
                 <ListItem>
-                  {/* <Avatar>
-                    <WorkIcon />
-                  </Avatar> */}
-                  <ListItemText primary="Work" secondary="Jan 7, 2014" />
+                  <ListItemText primary="エルゲ" />
+                  <ListItemText primary="10 pt." />
                 </ListItem>
                 <ListItem>
-                  {/* <Avatar>
-                    <BeachAccessIcon />
-                  </Avatar> */}
-                  <ListItemText primary="Vacation" secondary="July 20, 2014" />
+                  <ListItemText primary="連れ出し" />
+                  <ListItemText primary="25 pt." />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="コネクト" />
+                  <ListItemText primary="100 pt." />
                 </ListItem>
               </List>
-            </Grid>
+            </Paper>
+          </section>
+        </main>
 
-            <Grid item xs>
-              <TextField label="名前" id="name" type="text" />
-              <TextField label="時間" id="time" type="number" />
-              <TextField label="場所" id="place" type="text" />
-            </Grid>
-          </Grid>
-        </div>
+        <footer style={common.footer}>
+          <Button
+            color="primary"
+            fullWidth
+            onClick={
+              () => {
+                this.props.history.push({
+                  pathname: '/progress',
+                  state: {
+                    name: this.nameRef.value,
+                    place: this.placeRef.value,
+                    goal: this.state.goal,
+                    time: this.state.time
+                  }
+                });
+              }}
+            variant="contained"
+          >
+            Start
+          </Button>
+        </footer>
       </article>
     );
   }
 }
 
-// TargetSet.propTypes = {
-//   classes: PropTypes.object.isRequired,
-// };
+TargetSet.propTypes = {
+  history: PropTypes.object.isRequired
+};
 
 export default TargetSet;

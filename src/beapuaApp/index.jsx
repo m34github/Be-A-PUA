@@ -18,10 +18,10 @@ export default class App extends React.Component {
           <article>
             <Router>
               <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/set" component={TargetSet} />
+                <Route exact path="/" component={TargetSet} />
                 <Route exact path="/progress" component={Progress} />
                 <Route exact path="/result" component={Result} />
+                <Route exact path="/home" component={Home} />
                 <Redirect to="/" />
               </Switch>
             </Router>
