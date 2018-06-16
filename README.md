@@ -1,5 +1,5 @@
-# react-redux-pwa-template
-Template for PWA by React/Redux
+# Be A PUA
+Makes you a Pick Up Artist
 
 ## Prerequired
 Please install the following tools as OS level.
